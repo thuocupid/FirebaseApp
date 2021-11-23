@@ -3,6 +3,7 @@ package com.example.firebaseapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText courseNameEdt, courseDurationEdt, courseDescriptionEdt;
 
     //creating a variable for the button
-    private Button submitCourseBtn;
+    private Button submitCourseBtn, viewCoursesBtn;
 
     //creating a string for storing our values from edittext fields
     private String courseName, courseDuration, courseDescription;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //creating our instance from Firebase Firestore
+        //getting our instance from Firebase Firestore
         db = FirebaseFirestore.getInstance();
 
         //initializing our edittext and buttons
@@ -44,6 +45,17 @@ public class MainActivity extends AppCompatActivity {
         courseDurationEdt = findViewById(R.id.idEdtCourseDuration);
         courseDescriptionEdt = findViewById(R.id.idEdtCourseDescription);
         submitCourseBtn = findViewById(R.id.idBtnSubmitCourse);
+        viewCoursesBtn = findViewById(R.id.idBtnViewCourses);
+
+        //adding onclick listener to view data in new activity
+        viewCoursesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //opening new activity on button click
+                Intent i = new Intent(MainActivity.this, CourseDetails.class);
+                startActivity(i);
+            }
+        });
 
         //adding a click listener for our button
         submitCourseBtn.setOnClickListener(new View.OnClickListener() {
