@@ -1,11 +1,13 @@
 package com.example.firebaseapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.w3c.dom.Text;
@@ -25,18 +27,18 @@ public class CourseRVAdapter extends RecyclerView.Adapter<CourseRVAdapter.ViewHo
     }
 
     public CourseRVAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
-        //passin gour layout file for displaying our card item
+        //passing our layout file for displaying our card item
         return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.course_item, parent, false));
     }
-
-    public void onBindViewHolder(CourseRVAdapter.ViewHolder holder, int position){
+    @Override
+    public void onBindViewHolder(@NonNull CourseRVAdapter.ViewHolder holder, int position){
         //setting data to our text views from our modal class
         Courses courses = coursesArrayList.get(position);
         holder.courseNameTV.setText(courses.getCourseName());
         holder.courseDurationTV.setText(courses.getCourseDuration());
         holder.courseDescriptionTV.setText(courses.getCourseDescription());
     }
-
+    @Override
     public int getItemCount(){
         //returning the size of our array list
         return coursesArrayList.size();
@@ -54,6 +56,25 @@ public class CourseRVAdapter extends RecyclerView.Adapter<CourseRVAdapter.ViewHo
             courseNameTV = itemView.findViewById(R.id.idTVCourseName);
             courseDescriptionTV = itemView.findViewById(R.id.idTVcourseDescription);
             courseDurationTV = itemView.findViewById(R.id.idTVcourseDuration);
+
+            //here we are adding an Onclick listener for our item in recycler view
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //after clicking the item of the recycler view we are passing our course object to the new activity
+                    Courses courses = coursesArrayList.get(getAdapterPosition());
+
+                    //below line is creating the new intent
+                    Intent i = new Intent(context, UpdateCourses.class);
+
+                    //below line is for putting our course object to our next activity
+                    i.putExtra("course", courses);
+
+                    //after passing the data we are starting the new activity
+                    context.startActivity(i);
+                }
+            });
+
         }
     }
 

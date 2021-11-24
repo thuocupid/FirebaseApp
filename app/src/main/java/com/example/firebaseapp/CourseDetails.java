@@ -69,9 +69,14 @@ public class CourseDetails extends AppCompatActivity {
                                 //we will pass this object class inside our arraylist which we created for the recycler view.
                                 coursesArrayList.add(c);
 
+                                //below is the updated line of code which we have to add to pass the document id inside our modal class
+                                c.setId(d.getId());
+
+                                //we will pass this object class inside our arraylist which we have created in the recycler view
+                                coursesArrayList.add(c);
 
                             }
-
+                            //calling the method to notify that data has been changed in the recycler view
                             courseRVAdapter.notifyDataSetChanged();
                         } else {
                             //if the snapshot is empty we are displaying a toast message

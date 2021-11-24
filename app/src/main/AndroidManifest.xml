@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FirebaseApp">
         <activity
+            android:name=".UpdateCourses"
+            android:exported="false" />
+        <activity
             android:name=".CourseDetails"
             android:exported="false" />
         <activity
